@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 using Zenject;
 
 namespace Presenter
@@ -8,25 +9,23 @@ namespace Presenter
     {
         private IPlayerPresenter _presenter;
         private PlayerInputActions _inputActions;
-        private int _currentInputMode = 0; // 0 = WASD, 1 = PointAndClick, 2 = UI
+        private int _currentInputMode ; // 1 = WASD, 2 = PointAndClick, 3 = MovementUI
         private Vector2 _movementInput;
         [Inject]
         public void Construct(IPlayerPresenter presenter)
         {
             _presenter = presenter;
             _inputActions = new PlayerInputActions();
+            _currentInputMode = 1;
         }
 
         private void OnEnable()
         {
             _inputActions.PlayerMovement.Enable();
-
             _inputActions.PlayerMovement.WASD.performed += OnWASDPerformed;
             _inputActions.PlayerMovement.WASD.canceled += OnWASDPCanceled;
-
             _inputActions.PlayerMovement.PointAndClick.performed += OnPointAndClick;
-            _inputActions.PlayerMovement.MovementUI.performed += OnUIMove;
-
+            _inputActions.PlayerMovement.MovementUI.performed += OnMovementUI;
             // Switch input mode based on key press (1, 2, or 3)
             _inputActions.PlayerMovement.SwitchInputMode.performed += OnSwitchInputMode;
         }
@@ -38,8 +37,7 @@ namespace Presenter
 
         private void OnWASDPerformed(InputAction.CallbackContext context)
         {
-            print(context.control.name);
-            if (_currentInputMode == 0)
+            if (_currentInputMode == 1)
             {
                 _movementInput = context.ReadValue<Vector2>();
                 _presenter.HandleMoveInput(_movementInput);
@@ -55,17 +53,23 @@ namespace Presenter
 
         private void OnPointAndClick(InputAction.CallbackContext context)
         {
-            print(context.control.name);
-            if (_currentInputMode == 1)
+            if (_currentInputMode == 2)
             {
-                _presenter.HandleMoveInput(context.ReadValue<Vector2>());
+                if (context.performed)
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue());
+                    if (Physics.Raycast(ray, out RaycastHit hit))
+                    {
+                        _presenter.HandleMoveInput(new Vector2(hit.point.x, hit.point.z) );
+                    }
+                }      
             }
         }
 
-        private void OnUIMove(InputAction.CallbackContext context)
+        private void OnMovementUI(InputAction.CallbackContext context)
         {
             print(context.control.name);
-            if (_currentInputMode == 2)
+            if (_currentInputMode == 3)
             {
                 _presenter.HandleMoveInput(context.ReadValue<Vector2>());
             }
@@ -77,20 +81,18 @@ namespace Presenter
         {
             // Determine which key triggered the action
             var control = context.control;
-        
             if (control.name == "1")
             {
-                _currentInputMode = 0; // WASD
+                _currentInputMode = 1; // WASD
             }
             else if (control.name == "2")
             {
-                _currentInputMode = 1; // Point-and-Click
+                _currentInputMode = 2; // Point-and-Click
             }
             else if (control.name == "3")
             {
-                _currentInputMode = 2; // UI Movement
+                _currentInputMode = 3; // UI Movement
             }
-
             _presenter.SwitchInputMode(_currentInputMode);
         }
 

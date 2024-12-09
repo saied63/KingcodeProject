@@ -16,12 +16,12 @@
                 },
                 {
                     "name": "PointAndClick",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "7cfa49d8-8f1d-4dc3-8496-28983d6db7f5",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MovementUI",
@@ -88,7 +88,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
+                    "name": "Up",
                     "id": "4047dbdd-ea68-4df4-a6dc-d6c3131c848f",
                     "path": "<Keyboard>/#(W)",
                     "interactions": "",
@@ -99,7 +99,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "down",
+                    "name": "Down",
                     "id": "6c038107-72e3-433c-b857-e312d0a1bd3f",
                     "path": "<Keyboard>/#(S)",
                     "interactions": "",
@@ -110,7 +110,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "left",
+                    "name": "Left",
                     "id": "c5977f17-f66b-4ff8-96fa-97c0841ffc42",
                     "path": "<Keyboard>/#(A)",
                     "interactions": "",
@@ -121,8 +121,8 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
-                    "id": "4dba398e-5da1-4636-81be-bb8723e7c71b",
+                    "name": "Right",
+                    "id": "52a2e7b3-56a7-410f-8623-0add28302d90",
                     "path": "<Keyboard>/#(D)",
                     "interactions": "",
                     "processors": "",
@@ -130,6 +130,39 @@
                     "action": "WASD",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "d2b7603e-b9e4-4796-8185-d14a2ad35e27",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PointAndClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "92492b4b-13ec-4641-bf78-c38ef7d69a33",
+                    "path": "<AndroidGamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e9d4966-afaa-4a1c-888b-3553faed3fef",
+                    "path": "<AndroidGamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MovementUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

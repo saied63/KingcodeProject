@@ -7,47 +7,74 @@ namespace view
 {
     public class PlayerView : MonoBehaviour, IPlayerView
     {
-        private Vector2 _currentMovement;
-        [SerializeField] private float movementSpeed = 5f;
+        [SerializeField] private Vector3 _currentDirection;
+        [SerializeField] private float _movementSpeed = 5f;
         [SerializeField] private Utility.InputMode _lastInputMode;
-
-
-        public void UpdatePosition(Vector3 dir , Utility.InputMode inputMode)
+  
+        public void UpdatePosition(Vector3 target , Utility.InputMode inputMode = Utility.InputMode.WASD
+            )
         {
-            _currentMovement = dir;
+            _currentDirection = target;
             _lastInputMode = inputMode;
         }
 
+        /// <summary>
+        /// handle three kind of movement according player input choose
+        /// </summary>
+        void Update()
+        {         
+            if(_lastInputMode == Utility.InputMode.WASD)
+            {
+                MoveViaWASD();
+            }
+            else if (_lastInputMode == Utility.InputMode.PointAndClick)
+            {
+                MoveViaPointAndClick();
+            }
+            else if (_lastInputMode == Utility.InputMode.MovementUI)
+            {
+                MoveViaMovementUI();
+            }
+            
+        }
 
-
-    
-
-        private void FixedUpdate()
+        /// <summary>
+        /// move with keyboard
+        /// </summary>
+        public void MoveViaWASD()
         {
-            // Convert the 2D movement input to 3D movement
-            Vector3 movement = new Vector3(_currentMovement.x, 0, _currentMovement.y);
-            transform.Translate(movement * movementSpeed*Time.fixedDeltaTime);
+            if (_currentDirection == Vector3.zero)
+                return;
+            transform.position += _currentDirection * Time.deltaTime * _movementSpeed;
         }
 
 
-        public void MoveViaMovementUI(Vector3 direction)
+        /// <summary>
+        /// move with click
+        /// </summary>
+        /// <param name="direction"></param>
+        public void MoveViaPointAndClick()
         {
-            throw new System.NotImplementedException();
+            //Vector3 direction = (_currentDirection - transform.position).normalized;
+            if (_currentDirection == Vector3.zero)
+                return;
+            if (Vector3.Distance(transform.position, _currentDirection) < 0.5f)
+            {
+                //_lastInputMode = Utility.InputMode.None;
+                return;
+            }
+            //transform.position += _currentDirection * Time.deltaTime * _movementSpeed / 5f;
+            transform.position = Vector3.MoveTowards(transform.position, _currentDirection, Time.deltaTime * _movementSpeed );
         }
 
-        public void MoveViaPointAndClick(Vector3 direction)
+        /// <summary>
+        /// move with joystick
+        /// </summary>
+        public void MoveViaMovementUI()
         {
-            throw new System.NotImplementedException();
+            
         }
 
-        public void MoveViaWASD(Vector3 direction)
-        {
-            //Position += direction;
-        }
 
-        public void SetMovementInput(Vector3 direction)
-        {
-            //Position += direction;
-        }
     }
 }

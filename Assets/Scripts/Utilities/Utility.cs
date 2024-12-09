@@ -6,6 +6,7 @@ public static class Utility
 {
     public enum InputMode
     {
+        None,
         WASD,
         PointAndClick,
         MovementUI
