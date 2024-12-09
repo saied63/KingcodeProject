@@ -99,7 +99,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
+                    ""name"": ""2DVectorForMove"",
                     ""id"": ""a227faf2-c2fc-496c-be5c-1e4f3db38da6"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -165,26 +165,59 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""92492b4b-13ec-4641-bf78-c38ef7d69a33"",
-                    ""path"": ""<AndroidGamepad>/leftStick"",
+                    ""name"": ""MoveJoystick[Left side]"",
+                    ""id"": ""6be0a7da-2a40-491c-9a63-1de15284e3ae"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MovementUI"",
-                    ""isComposite"": false,
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""8e9d4966-afaa-4a1c-888b-3553faed3fef"",
-                    ""path"": ""<AndroidGamepad>/rightStick"",
+                    ""name"": ""up"",
+                    ""id"": ""31907fac-e620-468c-aa15-f5cc49dc8783"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MovementUI"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""d9ad02c4-e7e1-406d-8108-22349cd07a3a"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""74423eff-052f-4c2c-8a89-6cdb50eaa32d"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""4a621e36-23db-4a60-809f-c8de8f694f2b"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MovementUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
