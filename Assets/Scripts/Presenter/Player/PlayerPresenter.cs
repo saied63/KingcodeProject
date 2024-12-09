@@ -9,8 +9,8 @@ namespace Presenter
         private readonly view.IPlayerView _view;
         private readonly view.ICameraView _cameraView;
 
-        private enum InputMode { WASD, PointAndClick, UI }
-        private InputMode _currentMode = InputMode.WASD;
+     
+        private Utility.InputMode _currentMode = Utility.InputMode.WASD;
 
         public PlayerPresenter(model.IPlayerModel model, view.IPlayerView view, view.ICameraView cameraView)
         {
@@ -25,11 +25,10 @@ namespace Presenter
 
             switch (_currentMode)
             {
-                case InputMode.WASD:
+                case Utility.InputMode.WASD:
                     direction = new Vector3(input.x, 0, input.y);
                     break;
-
-                case InputMode.PointAndClick:
+                case Utility.InputMode.PointAndClick:
                     // Raycast to find the click position
                     Ray ray = Camera.main.ScreenPointToRay(input);
                     if (Physics.Raycast(ray, out RaycastHit hit))
@@ -38,19 +37,20 @@ namespace Presenter
                     }
                     break;
 
-                case InputMode.UI:
+                case Utility.InputMode.MovementUI:
                     direction = new Vector3(input.x, 0, 0); // Assuming horizontal movement (left/right)
                     break;
             }
-            Debug.Log("reapfsdf "+Time.time);
-            _model.Move(direction);
-            _view.UpdatePosition(_model.Position);
+            _model.UpdatePosition(direction);
+            _view.UpdatePosition(_model.Position, _currentMode);
             _cameraView.FollowPlayer(_model.Position);
         }
 
+
+
         public void SwitchInputMode(int mode)
         {
-            _currentMode = (InputMode)mode;
+            _currentMode = (Utility.InputMode)mode;
         }
 
     }

@@ -7,13 +7,17 @@ namespace model
 {
     public class PlayerModel : IPlayerModel
     {
+        
         public Vector3 Position { get; set; }
 
-        public void Move(Vector3 direction)
+        public void UpdatePosition(Vector3 dir)
         {
-            Position += direction;
+            Position = dir;
         }
 
+      
+
+     
     }
 }
 
